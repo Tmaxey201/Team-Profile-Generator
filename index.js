@@ -37,3 +37,80 @@ const addManager = () => {
             });
     });
 }
+
+//Prompt for adding Engineer or Intern input
+const addEmployee = () => {
+    return new Promise((resolve) => {
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "Select the Employee you would like to add:",
+                name: "role",
+                choices: [
+                    "Engineer",
+                    "Intern",
+                    {
+                        name: "No more employees to add",
+                        value: false
+                    }
+                ]
+            },
+            {
+                message: "Enter engineer's name:",
+                name: "name",
+                when: ({ role }) => role === "Engineer"
+            },
+            {
+                message: "Enter intern's name:",
+                name: "name",
+                when: ({ role }) => role === "Intern"
+            },
+            {
+                message: "Enter engineer's ID:",
+                name: "id",
+                when: ({ role }) => role === "Engineer"
+            },
+            {
+                message: "Enter intern's ID:",
+                name: "id",
+                when: ({ role }) => role === "Intern"
+            },
+            {
+                message: "Enter engineer's email address:",
+                name: "email",
+            },
+            {
+                message: "Enter intern's email address:",
+                name: "email",
+                when: ({ role }) => role === "Intern"
+            },
+            {
+                message: "Enter engineer's GitHub username:",
+                name: "github",
+                when: ({ role }) => role === "Engineer"
+            },
+            {
+                message: "Enter Intern's School name:",
+                name: "school",
+                when: ({ role }) => role === "Intern"
+            }
+        //add engineer and intern info into team array
+        ]).then(answers => {
+            if (answers.role) {
+                switch (answers.role) {
+                    case "Engineer":
+                        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+                        team.push(engineer);
+                        break;
+                    case "Intern":
+                        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+                        team.push(intern);
+                        break;
+                }
+                return addEmployee().then(() => resolve());
+            } else {
+                return resolve();
+            }
+        })
+    })
+}
