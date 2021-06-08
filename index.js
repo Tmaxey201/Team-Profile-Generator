@@ -2,7 +2,12 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
-
+const path = require("path");
+const fs = require("fs");
+const team = [];
+const render = require("./lib/htmlRenderer");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const addManager = () => {
     return new Promise((res) => {
@@ -78,6 +83,7 @@ const addEmployee = () => {
             {
                 message: "Enter engineer's email address:",
                 name: "email",
+                when: ({ role }) => role === "Intern"
             },
             {
                 message: "Enter intern's email address:",
@@ -113,4 +119,25 @@ const addEmployee = () => {
             }
         })
     })
+}
+
+addManager().then(() => {
+    return addEmployee();
+//Calling the function to explort team array into html template
+}).then(() => {
+    const templateHTML = render(team)
+    generatePage(templateHTML);
+}).catch((err) => {
+    console.log(err);
+});
+//generate html page 
+const generatePage = (htmlPage) => {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR);
+    }
+
+    fs.writeFile(outputPath, htmlPage, "utf-8", (err) => {
+        if(err) throw err;
+        console.log("Your new team profile page has been generated!");
+    });
 }
