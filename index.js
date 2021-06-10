@@ -83,7 +83,7 @@ const addEmployee = () => {
             {
                 message: "Enter engineer's email address:",
                 name: "email",
-                when: ({ role }) => role === "Intern"
+                when: ({ role }) => role === "Engineer"
             },
             {
                 message: "Enter intern's email address:",
