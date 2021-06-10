@@ -7,8 +7,7 @@ An application that will prompt the user to input information about the team man
 * [Installation](#Installation)
 * [Usage](#Usage)
 * [Test](#Test)
-* [Screenshot](#Screenshot)
-* [Questions](#Questions)
+
 ## Installation
 This app is created with NodeJS and requires Inquirer NPM package. To install the package, run ```npm install``` in your terminal. 
 ## Usage
