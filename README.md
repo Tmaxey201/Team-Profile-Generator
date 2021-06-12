@@ -1,4 +1,4 @@
-# Template Engine - Employee Summary
+
 ## [Link to video demo](https://sampsoncorgi2-gmail.tinytake.com/tt/NTQ5MzQ1MV8xNzE0MjA3Mw)
 ## Description
 An application that will prompt the user to input information about the team manager and then prompt the user to input information about the team members. Then once the information is inputed, it will generate an HTML template with a team roster. 
